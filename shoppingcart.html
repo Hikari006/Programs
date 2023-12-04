@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout Shopping Form</title>
+</head>
+<body>
+    <h1>Checkout Shopping Form</h1>
+    <form id="checkoutForm">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required>
+        <br>
+        <label for="address">Shipping Address:</label><br>
+        <textarea id="address" name="address" rows="4" cols="50" required></textarea>
+        <br>
+        <label for="creditCard">Credit Card Number:</label><br>
+        <input type="text" id="creditCard" name="creditCard" pattern="[0-9]{16}" required>
+        <br>
+        <label for="items">Items in Cart:</label><br>
+        <select id="items" name="items" multiple required>
+            <option value="item1">Item 1</option>
+            <option value="item2">Item 2</option>
+            <option value="item3">Item 3</option>
+        </select>
+        <br>
+        <button type="button" onclick="validateForm()">Checkout</button>
+    </form>
+
+    <script>
+        function validateForm() {
+            var name = document.getElementById("name").value;
+            var address = document.getElementById("address").value;
+            var creditCard = document.getElementById("creditCard").value;
+            var items = document.getElementById("items").selectedOptions;
+
+            if (name === "" || address === "" || creditCard === "" || items.length === 0) {
+                alert("All fields are required.");
+            } else if (!creditCard.match(/^\d{16}$/)) {
+                alert("Invalid credit card number. It must be a 16-digit number.");
+            } else {
+                var selectedItems = Array.from(items).map(option => option.value).join(", ");
+                alert("Checkout successful!\n\nName: " + name + "\nAddress: " + address + "\nCredit Card: " + creditCard + "\nItems: " + selectedItems);
+                // You can add code here to submit the form to the server if needed.
+            }
+        }
+    </script>
+</body>
+</html>
